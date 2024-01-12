@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace AgendamentoHoteis.Business.Interfaces
 {
-    public interface ITesteService
+    public interface IAgendamentoService
     {
-        Task<List<Teste>> BuscarTodos();
-        Task<Teste> BuscarPorId(long id);
-        Task Adicionar(Teste entity);
-        Task Atualizar(Teste entity);
-        Task Remover(long id);
+        Task<List<Agendamento>> ObterTodos();
+        Task<Agendamento> ObterPorId(long id);
+        Task Adicionar(Agendamento entity);
+        Task Atualizar(Agendamento entity);
     }
 }

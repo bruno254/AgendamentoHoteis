@@ -8,43 +8,39 @@ namespace AgendamentoHoteis.Controllers
     [ApiController]
     public class AgendamentoController : ControllerBase
     {
-        private readonly ITesteService _testeService;
+        private readonly IAgendamentoService _agendamentoService;
 
-        public AgendamentoController(ITesteService testeService) : base()
+        public AgendamentoController(IAgendamentoService AgendamentoService) : base()
         {
-            _testeService = testeService;
+            _agendamentoService = AgendamentoService;
         }
 
         // GET: api/<AgendamentoController>
         [HttpGet]
-        public async Task<List<Teste>> Index()
+        public async Task<List<Agendamento>> Index()
         {
-            return await _testeService.BuscarTodos();
+            return await _agendamentoService.ObterTodos();
         }
 
         // GET api/<AgendamentoController>/5
         [HttpGet("{id}")]
-        public async Task<Teste> Get(int id)
+        public async Task<Agendamento> Get(int id)
         {
-            return await _testeService.BuscarPorId(id);
+            return await _agendamentoService.ObterPorId(id);
         }
 
         // POST api/<AgendamentoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task Post([FromBody] Agendamento value)
         {
+            await _agendamentoService.Adicionar(value);
         }
 
         // PUT api/<AgendamentoController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Agendamento value)
         {
-        }
-
-        // DELETE api/<AgendamentoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            await _agendamentoService.Atualizar(value);
         }
     }
 }

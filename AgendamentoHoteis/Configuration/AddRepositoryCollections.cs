@@ -8,6 +8,7 @@ namespace AgendamentoHoteis.Configuration
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
             services.AddTransient<IRepositorioTeste, RepositorioTeste>();
+            services.AddTransient<IAgendamentoRepositorio, AgendamentoRepositorio>();
 
             return services;
         }

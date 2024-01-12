@@ -24,5 +24,20 @@ namespace AgendamentoHoteis.Business.Services
         {
             return await _testeRepository.BuscarPorId(id);
         }
+
+        public async Task Adicionar(Teste entity)
+        {
+            await _testeRepository.Adicionar(entity);
+        }
+
+        public async Task Atualizar(Teste entity)
+        {
+            await _testeRepository.Atualizar(entity);
+        }
+
+        public async Task Remover(long id)
+        {
+            await _testeRepository.Remover(id);
+        }
     }
 }

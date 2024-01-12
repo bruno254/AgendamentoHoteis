@@ -21,11 +21,7 @@ namespace AgendamentoHoteis.Data.Repositorio
 
         public async Task<Teste> BuscarPorId(long id)
         {
-            var obj = new Teste();
-
-            obj = await Db.Teste.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-            return obj;
+            return await Db.Teste.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
 
