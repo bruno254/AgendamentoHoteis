@@ -2,6 +2,7 @@
 using AgendamentoHoteis.Business.Models;
 using AgendamentoHoteis.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -11,7 +12,7 @@ namespace AgendamentoHoteis.Data.Repositorio
 {
     public class AgendamentoRepositorio : RepositorioBase<Agendamento>, IAgendamentoRepositorio
     {
-        public AgendamentoRepositorio(AppDbContext context) : base(context)
+        public AgendamentoRepositorio(AppDbContext context, IConfiguration configuration) : base(context, configuration)
         {
             
         }
@@ -85,15 +86,15 @@ namespace AgendamentoHoteis.Data.Repositorio
                     agendamento.Cancelado = false;
 
                     /// Criar Validação para o agendamento 
-                    //if (ValidaPeriodoAgendamento(agendamento.DataAgendamento)) {
-                    //    DbSet.Add(agendamento);
-                    //    SaveChanges();
-                    //}
+
+                    DbSet.Add(agendamento);
+                    SaveChanges();
+
                 };
 
-                channel.BasicConsume(queue : "agendamento",
-                                     autoAck : true,
-                                     consumer : consumer);
+                channel.BasicConsume(queue: "agendamento",
+                                     autoAck: true,
+                                     consumer: consumer);
             }
             
         }

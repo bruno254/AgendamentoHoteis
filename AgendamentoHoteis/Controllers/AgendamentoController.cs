@@ -35,5 +35,12 @@ namespace AgendamentoHoteis.Controllers
             await _agendamentoService.CancelarAgendamento(id);
         }
 
+        [Route("InserirAgendamentos")]
+        [HttpPost]
+        public void InserirAgendamentos()
+        {
+            _agendamentoService.InserirAgendamentos();
+        }
+
     }
 }

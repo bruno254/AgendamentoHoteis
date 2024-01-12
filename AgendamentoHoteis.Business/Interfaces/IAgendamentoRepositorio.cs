@@ -6,5 +6,6 @@ namespace AgendamentoHoteis.Business.Interfaces
     {
         void InserirFilaAgendamento(Agendamento agendamento);
         Task CancelarAgendamento(long id);
+        void InseriAgendamentos();
     }
 }

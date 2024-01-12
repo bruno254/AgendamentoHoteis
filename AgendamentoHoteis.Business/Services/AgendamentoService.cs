@@ -47,5 +47,11 @@ namespace AgendamentoHoteis.Business.Services
         {
             await _agendamentoRepository.CancelarAgendamento(id);
         }
+
+
+        public void InserirAgendamentos()
+        {
+            _agendamentoRepository.InseriAgendamentos();
+        }
     }
 }
