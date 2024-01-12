@@ -18,5 +18,11 @@ namespace AgendamentoHoteis.Business.Services
         {
             return await _testeRepository.BuscarTodos();
         }
+
+
+        public async Task<Teste> BuscarPorId(long id)
+        {
+            return await _testeRepository.BuscarPorId(id);
+        }
     }
 }

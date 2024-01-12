@@ -1,9 +1,6 @@
 ﻿using AgendamentoHoteis.Business.Interfaces;
 using AgendamentoHoteis.Business.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AgendamentoHoteis.Controllers
 {
@@ -12,7 +9,6 @@ namespace AgendamentoHoteis.Controllers
     public class AgendamentoController : ControllerBase
     {
         private readonly ITesteService _testeService;
-
 
         public AgendamentoController(ITesteService testeService) : base()
         {
@@ -28,9 +24,9 @@ namespace AgendamentoHoteis.Controllers
 
         // GET api/<AgendamentoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Teste> Get(int id)
         {
-            return "value";
+            return await _testeService.BuscarPorId(id);
         }
 
         // POST api/<AgendamentoController>

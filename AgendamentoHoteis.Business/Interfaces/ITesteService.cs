@@ -10,5 +10,6 @@ namespace AgendamentoHoteis.Business.Interfaces
     public interface ITesteService
     {
         Task<List<Teste>> BuscarTodos();
+        Task<Teste> BuscarPorId(long id);
     }
 }
