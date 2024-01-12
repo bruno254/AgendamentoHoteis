@@ -2,6 +2,7 @@
 using AgendamentoHoteis.Business.Models;
 using AgendamentoHoteis.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 using System.Linq.Expressions;
 
 namespace AgendamentoHoteis.Data.Repositorio
@@ -12,11 +13,20 @@ namespace AgendamentoHoteis.Data.Repositorio
         protected readonly AppDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
+        protected readonly ConnectionFactory factory;
 
         protected RepositorioBase(AppDbContext db)
         {
             Db = db;
             DbSet = db.Set<TEntity>();
+            factory = new ConnectionFactory()
+            {
+                HostName = "jackal-01.rmq.cloudamqp.com",
+                Port = 1883,
+                UserName = "jfwqlpob:jfwqlpob",
+                Password = "IMiN_0mS-lKcCbZ5iqMvQkAU-6T4Dm_6",
+                VirtualHost = "jfwqlpob"
+            };
         }
 
         public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)

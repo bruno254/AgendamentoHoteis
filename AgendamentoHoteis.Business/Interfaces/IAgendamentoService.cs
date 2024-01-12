@@ -13,5 +13,7 @@ namespace AgendamentoHoteis.Business.Interfaces
         Task<Agendamento> ObterPorId(long id);
         Task Adicionar(Agendamento entity);
         Task Atualizar(Agendamento entity);
+        void InserirFilaAgendamento(Agendamento agendamento);
+        Task CancelarAgendamento(long id);
     }
 }

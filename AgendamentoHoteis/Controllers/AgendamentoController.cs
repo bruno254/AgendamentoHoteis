@@ -15,32 +15,25 @@ namespace AgendamentoHoteis.Controllers
             _agendamentoService = AgendamentoService;
         }
 
-        // GET: api/<AgendamentoController>
+        [Route("Agendar")]
+        [HttpPost]
+        public void Agendar([FromBody] Agendamento value)
+        {
+            _agendamentoService.InserirFilaAgendamento(value);
+        }
+
+        [Route("ConsultarAgendamentos")]
         [HttpGet]
-        public async Task<List<Agendamento>> Index()
+        public async Task<List<Agendamento>> ConsultarAgendamentos()
         {
             return await _agendamentoService.ObterTodos();
         }
 
-        // GET api/<AgendamentoController>/5
-        [HttpGet("{id}")]
-        public async Task<Agendamento> Get(int id)
-        {
-            return await _agendamentoService.ObterPorId(id);
-        }
-
-        // POST api/<AgendamentoController>
-        [HttpPost]
-        public async Task Post([FromBody] Agendamento value)
-        {
-            await _agendamentoService.Adicionar(value);
-        }
-
-        // PUT api/<AgendamentoController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] Agendamento value)
+        public async Task CancelarAgendamento(long id)
         {
-            await _agendamentoService.Atualizar(value);
+            await _agendamentoService.CancelarAgendamento(id);
         }
+
     }
 }

@@ -25,6 +25,9 @@ namespace AgendamentoHoteis.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("Cancelado")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("DataAgendamento")
                         .HasColumnType("datetime(6)");
 
@@ -34,20 +37,6 @@ namespace AgendamentoHoteis.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Agendamento");
-                });
-
-            modelBuilder.Entity("AgendamentoHoteis.Business.Models.Teste", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Titulo")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teste");
                 });
 #pragma warning restore 612, 618
         }
