@@ -63,7 +63,7 @@ namespace AgendamentoHoteis.Data.Repositorio
             else
             {
                 ag.Cancelado = true;
-
+                ag.Msg = "Agendamento Cancelado";
                 DbSet.Update(ag);
                 await SaveChanges();
             }
@@ -71,9 +71,9 @@ namespace AgendamentoHoteis.Data.Repositorio
 
         public void ValidaAgendamento(Agendamento ag)
         {
-            var count = Db.Agendamento.Where(x => x.DataAgendamento == ag.DataAgendamento && x.NroQuarto == ag.NroQuarto && ag.Cancelado == false).Count();
+            var count = Db.Agendamento.Where(x => x.DataAgendamento == ag.DataAgendamento && x.NroQuarto == ag.NroQuarto && x.Cancelado == false).Count();
 
-            if(count > 0)
+            if (count > 0)
             {
                 throw new Exception("Quarto já reservado para o período!");
             }

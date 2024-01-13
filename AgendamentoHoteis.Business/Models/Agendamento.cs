@@ -6,6 +6,6 @@
         public long IdUsuario { get; set; }
         public long NroQuarto { get; set; }
         public bool Cancelado { get; set; }
-        public string Msg { get; set; }
+        public string? Msg { get; set; }
     }
 }
