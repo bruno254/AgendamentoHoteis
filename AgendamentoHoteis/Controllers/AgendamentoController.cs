@@ -1,9 +1,7 @@
-﻿using AgendamentoHoteis.Business.Interfaces;
+﻿using AgendamentoHoteis.Business.Dto;
+using AgendamentoHoteis.Business.Interfaces;
 using AgendamentoHoteis.Business.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AgendamentoHoteis.Controllers
 {
@@ -11,44 +9,41 @@ namespace AgendamentoHoteis.Controllers
     [ApiController]
     public class AgendamentoController : ControllerBase
     {
-        private readonly ITesteService _testeService;
+        private readonly IAgendamentoService _agendamentoService;
 
-
-        public AgendamentoController(ITesteService testeService) : base()
+        public AgendamentoController(IAgendamentoService AgendamentoService) : base()
         {
-            _testeService = testeService;
+            _agendamentoService = AgendamentoService;
         }
 
-        // GET: api/<AgendamentoController>
-        [HttpGet]
-        public async Task<List<Teste>> Index()
+        [HttpPost("Agendar")]
+        public async Task Agendar([FromBody] AgendamentoDTO value)
         {
-            return await _testeService.BuscarTodos();
+            Agendamento obj = new Agendamento();
+            obj.DataAgendamento = value.DataAgendamento;
+            obj.NroQuarto = value.NroQuarto;
+            obj.IdUsuario = value.IdUsuario;
+
+            await _agendamentoService.InserirFilaAgendamento(obj);
         }
 
-        // GET api/<AgendamentoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("ConsultarAgendamentosPorUsuario")]
+        public async Task<List<Agendamento>> ConsultarAgendamentosPorUsuario([FromQuery] BuscaPorUsuarioDto dto)
         {
-            return "value";
+            return await _agendamentoService.BuscaPorUsuario(dto.IdUsuario);
         }
 
-        // POST api/<AgendamentoController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("ConsultarAgendamentos")]
+        public async Task<List<Agendamento>> ConsultarAgendamentos()
         {
+            return await _agendamentoService.BuscarTodosAgendamentos();
         }
 
-        // PUT api/<AgendamentoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("CancelarAgendamento/{id}")]
+        public async Task CancelarAgendamento([FromRoute] long id)
         {
+            await _agendamentoService.CancelarAgendamento(id);
         }
 
-        // DELETE api/<AgendamentoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

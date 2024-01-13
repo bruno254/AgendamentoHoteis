@@ -2,21 +2,31 @@
 using AgendamentoHoteis.Business.Models;
 using AgendamentoHoteis.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client;
 using System.Linq.Expressions;
 
 namespace AgendamentoHoteis.Data.Repositorio
 {
     public abstract class RepositorioBase<TEntity> : IRepositorioBase<TEntity> where TEntity : Entity, new()
     {
-
+        private readonly IConfiguration _configuration;
         protected readonly AppDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
+        protected readonly ConnectionFactory factory;
 
-        protected RepositorioBase(AppDbContext db)
+        protected RepositorioBase(AppDbContext db, IConfiguration configuration)
         {
+            _configuration = configuration;
             Db = db;
             DbSet = db.Set<TEntity>();
+            factory = new ConnectionFactory()
+            {
+                HostName = _configuration.GetSection("ConfigRabbitMQ").GetSection("HostName").Value,
+                UserName = _configuration.GetSection("ConfigRabbitMQ").GetSection("UserName").Value,
+                Password = _configuration.GetSection("ConfigRabbitMQ").GetSection("Password").Value
+            };
         }
 
         public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)

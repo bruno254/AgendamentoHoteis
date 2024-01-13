@@ -7,7 +7,7 @@ namespace AgendamentoHoteis.Configuration
     {
         public static IServiceCollection AddServiceAplication(this IServiceCollection services)
         {
-            services.AddTransient<ITesteService, ServiceTeste>();
+            services.AddTransient<IAgendamentoService, AgendamentoService>();
 
             return services;
         }

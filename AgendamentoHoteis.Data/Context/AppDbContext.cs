@@ -9,8 +9,6 @@ namespace AgendamentoHoteis.Data.Context
         {
 
         }
-
-        public DbSet<Teste> Teste { get; set; }
-
+        public DbSet<Agendamento> Agendamento { get; set; }
     }
 }
