@@ -9,12 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendamentoHoteis.Data", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendamentoHoteis.Business", "AgendamentoHoteis.Business\AgendamentoHoteis.Business.csproj", "{56EE36CC-B49A-44B8-80FA-1DFCF41A630F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendamentoHoteis.Consumer", "AgendamentoHoteis.Consumer\AgendamentoHoteis.Consumer.csproj", "{DA1EF787-F696-48F5-A607-720542A84C06}"
-	ProjectSection(ProjectDependencies) = postProject
-		{56EE36CC-B49A-44B8-80FA-1DFCF41A630F} = {56EE36CC-B49A-44B8-80FA-1DFCF41A630F}
-		{F5B72E07-A413-4B0F-94DC-36239E2D2876} = {F5B72E07-A413-4B0F-94DC-36239E2D2876}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +27,6 @@ Global
 		{56EE36CC-B49A-44B8-80FA-1DFCF41A630F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56EE36CC-B49A-44B8-80FA-1DFCF41A630F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56EE36CC-B49A-44B8-80FA-1DFCF41A630F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA1EF787-F696-48F5-A607-720542A84C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA1EF787-F696-48F5-A607-720542A84C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA1EF787-F696-48F5-A607-720542A84C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA1EF787-F696-48F5-A607-720542A84C06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
