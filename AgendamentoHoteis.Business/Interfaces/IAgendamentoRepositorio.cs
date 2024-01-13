@@ -4,8 +4,8 @@ namespace AgendamentoHoteis.Business.Interfaces
 {
     public interface IAgendamentoRepositorio : IRepositorioBase<Agendamento>
     {
-        void InserirFilaAgendamento(Agendamento agendamento);
+        Task InserirFilaAgendamento(Agendamento agendamento);
         Task CancelarAgendamento(long id);
-        void InseriAgendamentos();
+        Task<List<Agendamento>> BuscaPorUsuario(long idUsuario);
     }
 }

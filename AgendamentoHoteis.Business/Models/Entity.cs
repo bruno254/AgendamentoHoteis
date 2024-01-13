@@ -6,7 +6,6 @@ namespace AgendamentoHoteis.Business.Models
     public abstract class Entity
     {
         [Key]
-        [JsonIgnore]
         public long Id { get; set; }
     }
 }

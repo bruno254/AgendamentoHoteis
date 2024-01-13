@@ -17,8 +17,16 @@ namespace AgendamentoHoteis.Data.Repositorio
             
         }
 
-        public void InserirFilaAgendamento(Agendamento agendamento)
+        public async Task<List<Agendamento>> BuscaPorUsuario(long idUsuario)
         {
+            
+            return await Db.Agendamento.Where(x => x.IdUsuario == idUsuario).ToListAsync();
+        }
+
+        public async Task InserirFilaAgendamento(Agendamento agendamento)
+        {
+            ValidaAgendamento(agendamento);
+
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -41,17 +49,16 @@ namespace AgendamentoHoteis.Data.Repositorio
 
         public async Task CancelarAgendamento(long id)
         {
-            Agendamento ag = new Agendamento();
-            ag = await Db.Agendamento.FirstOrDefaultAsync(x => x.Id == id);
+            Agendamento ag = await Db.Agendamento.FirstOrDefaultAsync(x => x.Id == id);
 
             if (ag == null)
             {
-                // tratar para quando não existir agendamentos.
+                throw new Exception("Agendamento Não Encontrado");
             }
 
             if (ag.Cancelado)
             {
-                // tratar para quando existir um agendamento mas que ele ja esteja cancelado.
+                throw new Exception("Agendamento Já Está cancelado");
             } 
             else
             {
@@ -60,57 +67,18 @@ namespace AgendamentoHoteis.Data.Repositorio
                 DbSet.Update(ag);
                 await SaveChanges();
             }
-
-            
         }
 
-        public void InseriAgendamentos()
+        public void ValidaAgendamento(Agendamento ag)
         {
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            var count = Db.Agendamento.Where(x => x.DataAgendamento == ag.DataAgendamento && x.NroQuarto == ag.NroQuarto && ag.Cancelado == false).Count();
+
+            if(count > 0)
             {
-                channel.QueueDeclare(queue: "agendamento",
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-
-                var consumer = new EventingBasicConsumer(channel);
-
-                consumer.Received += (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var obj = Encoding.UTF8.GetString(body);
-
-                    Agendamento agendamento = JsonSerializer.Deserialize<Agendamento>(obj);
-                    agendamento.Cancelado = false;
-
-                    /// Criar Validação para o agendamento 
-
-                    DbSet.Add(agendamento);
-                    SaveChanges();
-
-                };
-
-                channel.BasicConsume(queue: "agendamento",
-                                     autoAck: true,
-                                     consumer: consumer);
+                throw new Exception("Quarto já reservado para o período!");
             }
-            
         }
 
-
-        //public async bool ValidaPeriodoAgendamento(DateTime dataAgendamento)
-        //{
-        //    var ag = await Db.Agendamento.FirstOrDefaultAsync(x => x.DataAgendamento == dataAgendamento);
-        //    if(ag == null)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+       
     }
 }

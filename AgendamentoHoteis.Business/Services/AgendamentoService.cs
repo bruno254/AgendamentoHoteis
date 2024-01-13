@@ -13,45 +13,20 @@ namespace AgendamentoHoteis.Business.Services
             _agendamentoRepository = agendamentoRepository;
         }
 
-        public async Task Adicionar(Agendamento entity)
+        public async Task<List<Agendamento>> BuscaPorUsuario(long idUsuario)
         {
-            await _agendamentoRepository.Adicionar(entity);
+            return await _agendamentoRepository.BuscaPorUsuario(idUsuario);
         }
 
-        public async Task Atualizar(Agendamento entity)
-        {
-            await _agendamentoRepository.Atualizar(entity);
-        }
 
-        public async Task<Agendamento> ObterPorId(long id)
+        public async Task InserirFilaAgendamento(Agendamento agendamento)
         {
-            return await _agendamentoRepository.ObterPorId(id);
-        }
-
-        public async Task<List<Agendamento>> ObterTodos()
-        {
-            return await _agendamentoRepository.ObterTodos();
-        }
-
-        public async Task Remover(long id)
-        {
-            await _agendamentoRepository.Remover(id);
-        }
-
-        public void InserirFilaAgendamento(Agendamento agendamento)
-        {
-            _agendamentoRepository.InserirFilaAgendamento(agendamento);
+            await _agendamentoRepository.InserirFilaAgendamento(agendamento);
         }
 
         public async Task CancelarAgendamento(long id)
         {
             await _agendamentoRepository.CancelarAgendamento(id);
-        }
-
-
-        public void InserirAgendamentos()
-        {
-            _agendamentoRepository.InseriAgendamentos();
         }
     }
 }
