@@ -28,5 +28,10 @@ namespace AgendamentoHoteis.Business.Services
         {
             await _agendamentoRepository.CancelarAgendamento(id);
         }
+
+        public async Task<List<Agendamento>> BuscarTodosAgendamentos()
+        {
+            return await _agendamentoRepository.ObterTodos();
+        }
     }
 }

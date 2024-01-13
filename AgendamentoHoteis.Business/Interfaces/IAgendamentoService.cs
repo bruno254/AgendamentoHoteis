@@ -7,5 +7,6 @@ namespace AgendamentoHoteis.Business.Interfaces
         Task InserirFilaAgendamento(Agendamento agendamento);
         Task CancelarAgendamento(long id);
         Task<List<Agendamento>> BuscaPorUsuario(long idUsuario);
+        Task<List<Agendamento>> BuscarTodosAgendamentos();
     }
 }

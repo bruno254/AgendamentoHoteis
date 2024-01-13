@@ -2,7 +2,6 @@
 using AgendamentoHoteis.Business.Interfaces;
 using AgendamentoHoteis.Business.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Metrics;
 
 namespace AgendamentoHoteis.Controllers
 {
@@ -17,8 +16,7 @@ namespace AgendamentoHoteis.Controllers
             _agendamentoService = AgendamentoService;
         }
 
-        [Route("Agendar")]
-        [HttpPost]
+        [HttpPost("Agendar")]
         public async Task Agendar([FromBody] AgendamentoDTO value)
         {
             Agendamento obj = new Agendamento();
@@ -29,15 +27,20 @@ namespace AgendamentoHoteis.Controllers
             await _agendamentoService.InserirFilaAgendamento(obj);
         }
 
-        [Route("ConsultarAgendamentosPorUsuario")]
-        [HttpGet]
-        public async Task<List<Agendamento>> ConsultarAgendamentos([FromQuery] BuscaPorUsuarioDto dto)
+        [HttpGet("ConsultarAgendamentosPorUsuario")]
+        public async Task<List<Agendamento>> ConsultarAgendamentosPorUsuario([FromQuery] BuscaPorUsuarioDto dto)
         {
             return await _agendamentoService.BuscaPorUsuario(dto.IdUsuario);
         }
 
-        [HttpPut("{id}")]
-        public async Task CancelarAgendamento(long id)
+        [HttpGet("ConsultarAgendamentos")]
+        public async Task<List<Agendamento>> ConsultarAgendamentos()
+        {
+            return await _agendamentoService.BuscarTodosAgendamentos();
+        }
+
+        [HttpPut("CancelarAgendamento/{id}")]
+        public async Task CancelarAgendamento([FromRoute] long id)
         {
             await _agendamentoService.CancelarAgendamento(id);
         }
